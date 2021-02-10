@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 
-import { googleClientID, googleClientSecret, facebookClientID, facebookClientSecret } from '../config/keys.js';
+import keys from '../config/keys.js';
 import { User } from '../models/User.js';
 
 
@@ -20,8 +20,8 @@ const usePassport = () => {
     
     passport.use(new GoogleStrategy(
         {
-        clientID: googleClientID,
-        clientSecret: googleClientSecret,
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/auth/google/callback'
         },
         async (accessToken, refreshToken, profile, done) => {
@@ -38,12 +38,11 @@ const usePassport = () => {
 
     passport.use( new FacebookStrategy(
         {
-            clientID: facebookClientID,
-            clientSecret: facebookClientSecret,
+            clientID: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
             callbackURL: '/auth/facebook/callback'
         },
         async (accessToken, refreshToken, profile, done) => {
-            console.log(profile)
             let user = await User.findOne({ facebookId: profile.id});
             
             if (!user) {
