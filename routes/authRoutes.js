@@ -8,13 +8,16 @@ router.get('/google', passport.authenticate('google', {
     scope: ['profile', 'email']
 }));
 
-router.get('/google/callback', passport.authenticate('google'));
+router.get('/google/callback', passport.authenticate('google'), 
+    (req, res) => {
+        res.redirect('/survey');
+    });
 
 router.get('/facebook', passport.authenticate('facebook'));
 
 router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/'}),
     (req, res) => {
-        res.redirect('/auth/current-user');
+        res.redirect('/survey');
     }
 )
 
