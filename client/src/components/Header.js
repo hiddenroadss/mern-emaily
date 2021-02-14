@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { logoutUser } from '../actions';
+import Payments from './Payments';
 
 
 class Header extends React.Component {
@@ -16,7 +17,11 @@ class Header extends React.Component {
                     <li><a href="/auth/google">Log In via Google</a></li>
                 );
             default:
-                return <li onClick={() => this.props.logoutUser()}><a>Log Out</a></li>
+                return [
+                    <li key="1"><Payments /></li>,
+                    <li key="3" style={{margin: '0 10px'}}>Credits: {this.props.auth.credits}</li>,
+                    <li key="2" onClick={() => this.props.logoutUser()}><a>Log Out</a></li>
+                ];
         }
     }
 
