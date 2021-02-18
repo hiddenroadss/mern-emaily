@@ -1,4 +1,4 @@
-const authMiddleware = (req, res, next) => {
+const requireLogin = (req, res, next) => {
     if (!req.user) {
         res.status(401).send({error: 'You must be logged in'})
     }
@@ -6,4 +6,4 @@ const authMiddleware = (req, res, next) => {
     next();
 }
 
-export default authMiddleware;
+export default requireLogin;

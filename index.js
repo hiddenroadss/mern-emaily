@@ -7,7 +7,8 @@ import passport from 'passport';
 import bodyParser from 'body-parser';
 
 import authRouter from './routes/authRoutes.js';  
-import apiRouter from './routes/apiRoutes.js';  
+import billingRouter from './routes/billingRoutes.js';  
+import surveyRouter from './routes/surveyRoutes.js';
 import usePassport from './services/passport.js';
 
 
@@ -32,7 +33,8 @@ app.use(passport.session());
 
 // Routes
 app.use('/auth', authRouter);
-app.use('/api', apiRouter);
+app.use(billingRouter);
+app.use(surveyRouter);
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));

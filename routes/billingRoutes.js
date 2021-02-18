@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import Stripe from 'stripe';
 
-import authMiddleware from '../middlewares/authMiddleware.js';
+import requireLogin from '../middlewares/requireLogin.js';
 
 
 const router = Router();
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-router.post('/stripe', authMiddleware, async (req, res) => {
+router.post('api/stripe', requireLogin, async (req, res) => {
     const charge = await stripe.charges.create({
         amount: 500,
         currency: 'usd',
